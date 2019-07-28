@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ClassUtilsImpl implements ClassUtils<Class> {
+public class ClassUtilsImpl implements ClassUtils {
 
   private static final String POINT = ".";
   private static final String SLASH = "/";
@@ -26,8 +26,9 @@ public class ClassUtilsImpl implements ClassUtils<Class> {
     Class c;
     for (String str : className) {
       c = Class.forName(str);
-      if (extendClass.isAssignableFrom(c) && extendClass != c && !Modifier
-        .isAbstract(c.getModifiers())) {
+      if (extendClass.isAssignableFrom(c) &&
+        extendClass != c &&
+        !Modifier.isAbstract(c.getModifiers())) {
         list.add(c);
       }
     }
@@ -51,7 +52,7 @@ public class ClassUtilsImpl implements ClassUtils<Class> {
    */
   @Override
   public List<Class> loadClass(Class extendClass) throws ClassNotFoundException {
-    String currentPath = ClassUtilsImpl.class.getResource(POINT).getFile();
+    String currentPath = getClass().getResource(POINT).getFile();
     String rootPath = getRootPath();
     currentPath = currentPath.replace(rootPath, EMPTY);
     int i;
@@ -85,7 +86,7 @@ public class ClassUtilsImpl implements ClassUtils<Class> {
     }
   }
 
-  public void getClassFile(File file, List<String> fileList) {
+  private void getClassFile(File file, List<String> fileList) {
     String fileName = file.getAbsolutePath();
     int i = fileName.lastIndexOf(POINT);
     if (CLASSNAME.equals(fileName.substring(i + 1))) {
@@ -93,6 +94,9 @@ public class ClassUtilsImpl implements ClassUtils<Class> {
     }
   }
 
+  /**
+   * 获取项目路径
+   */
   private String getRootPath() {
     return getClass().getResource(SLASH).getFile();
   }
