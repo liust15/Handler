@@ -1,4 +1,5 @@
 # Handler
+[简书地址](https://www.jianshu.com/p/b71afbf49776)
 实现责任链模式，通过反射的方式
 
 主要实现流程
